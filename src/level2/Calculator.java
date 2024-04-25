@@ -4,48 +4,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Calculator {
+    private double radius;
     private double firstNumber;
     private double secondNumber;
     private char operator;
+    private boolean isCircle; //원의 넓이 계산인지 사칙연산 계산인지 판단하기 위한 변수
 
-    private static List<Double> results = new ArrayList<>();
 
-    public Calculator(double firstNumber, double secondNumber, char operator){
+    ArithmeticCalculator ac = new ArithmeticCalculator();
+    CircleCalculator cc = new CircleCalculator();
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    public Calculator(double firstNumber, double secondNumber, char operator){ //사칙연산을 위한 생성자
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.operator = operator;
-    }
-    public List<Double> getResults() {
-        return results;
+        this.isCircle = false;
     }
 
-    public void setResults(List<Double> results) {
-        this.results = results;
+    public Calculator(double radius){ //원의 넓이를 구히기 위한 생성자
+        this.radius = radius;
+        this.isCircle = true;
     }
 
     public double calculate(){
-        switch (operator){
-            case '+':
-                results.add(firstNumber+secondNumber);
-                break;
-            case '-':
-                results.add(firstNumber-secondNumber);
-                break;
-            case '*':
-                results.add(firstNumber*secondNumber);
-                break;
-            case '/':
-                results.add(firstNumber/secondNumber);
-                break;
 
+        double result;
+        if(!isCircle){
+            result = ac.arithmeticCalculate(firstNumber,secondNumber,operator);
+        }else{
+            result = cc.calulateCircle(radius);
         }
-        return results.get(results.size()-1);
+
+        return result;
     }
 
-    public void listLook(){
-        results.stream().forEach(System.out::println);
-    }
-    public void removeResult(){
-        results.remove(results.size()-1);
-    }
 }
