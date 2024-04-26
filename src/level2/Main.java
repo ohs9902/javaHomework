@@ -5,16 +5,17 @@ import java.util.Scanner;
 import static java.util.regex.Pattern.matches;
 
 public class Main {
-    private static final String OPER_REG = "[+\\-*/]"; //고정으로 사용하는 변수라 final로 상수로 선언
+    private static final String OPER_REG = "[+\\-*/%]"; //고정으로 사용하는 변수라 final로 상수로 선언
     public static void main(String[] args) throws Exception {
         int select;
         boolean stop = false;
         double firstNum;
         double secondNum;
         double radius;
-        String operator;
+        String operatorInput;
 
         Calculator calculator;
+        Operator operator = null;
         Scanner sc = new Scanner(System.in);
 
         while (!stop) {
@@ -45,10 +46,28 @@ public class Main {
                 }
 
                 System.out.println("연산자를 입력하세요 : ");
-                operator = sc.nextLine();
-                if(operator.matches(OPER_REG)){
-                    calculator = new Calculator(firstNum,secondNum,operator.charAt(0));
-                    System.out.println(calculator.calculate());
+                operatorInput = sc.nextLine();
+                if(operatorInput.matches(OPER_REG)){
+                    switch (operatorInput){
+                        case "+":
+                            operator = new AddOperator();
+                            break;
+                        case "-":
+                            operator = new SubtractOperator();
+                            break;
+                        case "*":
+                            operator = new MultiplyOperator();
+                            break;
+                        case "/":
+                            operator = new DivideOperator();
+                            break;
+                        case "%":
+                            operator = new ModOperator();
+                            break;
+
+                    }
+                    calculator = new ArithmeticCalculator(firstNum,secondNum,operator);
+                    System.out.println(((ArithmeticCalculator) calculator).calculate());
                 }else{
                     throw new BadInputException("없는 연산자 입니다.");
                 }
@@ -57,7 +76,7 @@ public class Main {
                 if(sc.hasNextDouble()){
                     radius = sc.nextDouble();
                     sc.nextLine();
-                    calculator = new Calculator(radius);
+                    calculator = new CircleCalculator(radius);
                     System.out.println(calculator.calculate());
                 }
             }else if(select == 3){

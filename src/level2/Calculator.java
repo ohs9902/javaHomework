@@ -7,12 +7,37 @@ public class Calculator {
     private double radius;
     private double firstNumber;
     private double secondNumber;
-    private char operator;
-    private boolean isCircle; //원의 넓이 계산인지 사칙연산 계산인지 판단하기 위한 변수
+    private Operator operator; //포함관계
+    public Operator getOperator() {
+        return operator;
+    }
+
+    public void setOperator(Operator operator) {
+        this.operator = operator;
+    }
 
 
-    ArithmeticCalculator ac = new ArithmeticCalculator();
-    CircleCalculator cc = new CircleCalculator();
+    public double getFirstNumber() {
+        return firstNumber;
+    }
+
+    public void setFirstNumber(double firstNumber) {
+        this.firstNumber = firstNumber;
+    }
+
+    public double getSecondNumber() {
+        return secondNumber;
+    }
+
+    public void setSecondNumber(double secondNumber) {
+        this.secondNumber = secondNumber;
+    }
+
+
+
+
+
+
     public double getRadius() {
         return radius;
     }
@@ -21,28 +46,18 @@ public class Calculator {
         this.radius = radius;
     }
 
-    public Calculator(double firstNumber, double secondNumber, char operator){ //사칙연산을 위한 생성자
+    public Calculator(double firstNumber, double secondNumber, Operator operator){ //사칙연산을 위한 생성자
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.operator = operator;
-        this.isCircle = false;
     }
 
     public Calculator(double radius){ //원의 넓이를 구히기 위한 생성자
         this.radius = radius;
-        this.isCircle = true;
     }
 
-    public double calculate(){
-
-        double result;
-        if(!isCircle){
-            result = ac.arithmeticCalculate(firstNumber,secondNumber,operator);
-        }else{
-            result = cc.calulateCircle(radius);
-        }
-
-        return result;
-    }
+    public double calculate(){ //오버라이딩 하기위해 정의
+        return 0;
+    };
 
 }
