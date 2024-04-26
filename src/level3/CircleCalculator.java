@@ -10,8 +10,8 @@ public class CircleCalculator extends Calculator {
     }
     @Override
     public double calculate(){
-        results2.add(super.getRadius()*super.getRadius()*3.14);
-        return super.getRadius()*super.getRadius()*3.14;
+        results2.add(getRadius()*getRadius()*3.14);
+        return getRadius()*getRadius()*3.14;
     }
     public static void listLook2(){ //static List 참조를 위해 static 선언
         results2.stream().forEach(System.out::println);

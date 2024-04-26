@@ -23,6 +23,7 @@ public class Main {
             System.out.println("4.원의 넓이 기록 보기");
             System.out.println("5.사칙연산 삭제");
             System.out.println("6.원의 넓이 삭제");
+            System.out.println("7.숫자입력(사칙연산 기록중 입력한 수보다 큰값들 조회)");
             System.out.println("0.종료");
             select = sc.nextInt();
             sc.nextLine();
@@ -93,6 +94,11 @@ public class Main {
                 ArithmeticCalculator.removeResult();
             } else if (select == 6) {
                 CircleCalculator.removeResult2();
+            } else if (select == 7) {
+                System.out.println("숫자를 입려하세요 :");
+                double number = sc.nextDouble();
+                sc.nextLine();
+                ArithmeticCalculator.resultsGreaterThan(number);
             } else if(select == 0){
                 stop = true;
             }else{
