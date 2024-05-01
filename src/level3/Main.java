@@ -1,15 +1,16 @@
 package level3;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         int select;
-        boolean control = false;
+
         boolean stop = false;
-        double firstNum;
-        double secondNum;
+        double firstNum = 0;
+        double secondNum = 0;
         double radius;
 
         String operatorInput;
@@ -18,45 +19,59 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         while (!stop) {
-            System.out.println("1.사칙연산");
-            System.out.println("2.원의 넓이");
-            System.out.println("3.사칙 연산 기록 보기");
-            System.out.println("4.원의 넓이 기록 보기");
-            System.out.println("5.사칙연산 이전 기록 삭제");
-            System.out.println("6.원의 넓이 이전 기록 삭제");
-            System.out.println("7.숫자입력(사칙연산 기록중 입력한 수보다 큰값들 조회)");
-            System.out.println("0.종료");
-            select = sc.nextInt();
-            sc.nextLine();
+            try{
+                System.out.println("1.사칙연산");
+                System.out.println("2.원의 넓이");
+                System.out.println("3.사칙 연산 기록 보기");
+                System.out.println("4.원의 넓이 기록 보기");
+                System.out.println("5.사칙연산 이전 기록 삭제");
+                System.out.println("6.원의 넓이 이전 기록 삭제");
+                System.out.println("7.숫자입력(사칙연산 기록중 입력한 수보다 큰값들 조회)");
+                System.out.println("0.종료");
+
+                select = sc.nextInt();
+                sc.nextLine();
+
+            }catch(Exception e){
+                sc.nextLine();
+                continue;
+            }
 
             if(select == 1){
-                System.out.println("첫번째 숫자를 입력하세요 : ");
-                if(sc.hasNextDouble()){
-                    firstNum = sc.nextDouble();
-                    sc.nextLine();
-                }else{
-                    throw new BadInputException("숫자를 입력하세요");
-                }
-                System.out.println("두번째 숫자를 입력하세요 : ");
-                if(sc.hasNextDouble()){
-                    secondNum = sc.nextDouble();
-                    sc.nextLine();
-                }else{
-                    throw new BadInputException("숫자를 입력하세요");
-                }
+                while (true){
+                    boolean control = false;
+                    try{
+                        System.out.println("첫번째 숫자를 입력하세요 : ");
+                        firstNum = sc.nextDouble();
+                        sc.nextLine();
 
-                System.out.println("연산자를 입력하세요 : ");
-                operatorInput = sc.nextLine();
+                        System.out.println("두번째 숫자를 입력하세요 : ");
+                        secondNum = sc.nextDouble();
+                        sc.nextLine();
 
-                //이넘클래스에 입력값이 있는지 확인
-                for (OperatorType ot : OperatorType.values()) {
-                    if(operatorInput.charAt(0) == ot.getOp())
-                        control = true;
-                }
-                if(control){
-                    System.out.println((double)calculator.calculate(firstNum,secondNum,operatorInput.charAt(0)));
-                }else{
-                    throw new BadInputException("잘못된 연산자 입니다.");
+                        System.out.println("연산자를 입력하세요 : ");
+                        operatorInput = sc.nextLine();
+
+                        //이넘클래스에 입력값이 있는지 확인
+                        for (OperatorType ot : OperatorType.values()) {
+                            if(operatorInput.charAt(0) == ot.getOp()){
+                                control = true;
+                                break;
+                            }
+                        }
+
+                        if(control){
+                            System.out.println((double)calculator.calculate(firstNum,secondNum,operatorInput.charAt(0)));
+                        }else{
+                            System.out.println("잘못된 연산자입니다.");
+                            continue;
+                        }
+                        break;
+                    }catch (InputMismatchException e){
+                        System.out.println("잘못된 입력입니다.");
+                        sc.nextLine();
+
+                    }
                 }
 
             }else if(select == 2){
@@ -82,7 +97,7 @@ public class Main {
             } else if(select == 0){
                 stop = true;
             }else{
-                throw new BadInputException("1번과 2번중에 선택하세요");
+                throw new BadInputException("숫자를 입력하세요.");
             }
 
 
