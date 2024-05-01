@@ -22,12 +22,11 @@ public class Main {
             sc.nextLine();
             System.out.println("연산자를 입력하세요 : ");
             String operator = sc.nextLine();
-            Calculate calculate = new Calculate(firstNum, secondNum, operator.charAt(0));
-
-            if (operator.equals('/') || secondNum == 0) {
+            if (operator.equals("/") && secondNum==0) {
                 System.out.println("나눗셈 연산중 분모를 0으로 할 수 없습니다.");
                 continue;
             }
+            Calculate calculate = new Calculate(firstNum, secondNum, operator.charAt(0));
 
             System.out.println("계산 결과입니다 : " + calculate.operate());
             calList.add(calculate);
