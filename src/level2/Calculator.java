@@ -33,18 +33,10 @@ public class Calculator {
         this.secondNumber = secondNumber;
     }
 
-
-
-
-
-
     public double getRadius() {
         return radius;
     }
 
-    public void setRadius(double radius) {
-        this.radius = radius;
-    }
 
     public Calculator(double firstNumber, double secondNumber, Operator operator){ //사칙연산을 위한 생성자
         this.firstNumber = firstNumber;
